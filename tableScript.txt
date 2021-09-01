@@ -1,0 +1,105 @@
+create schema `userdb`;
+use `userdb`;
+create table buyer(
+buyerid integer primary key,
+name varchar(100),
+email varchar(25),
+phoneno bigint,
+password varchar(20),
+isprivileged boolean,
+rewardpoints integer,
+isactive boolean);
+insert into buyer values(1,'aravind','aravind@infosys.com',9009009001,'Aravind@01',true,100,true);
+insert into buyer values(2,'sraddha','sraddha@infosys.com',9009009002,'Sraddha@01',false,100,true);
+insert into buyer values(3,'goyal','goyal@infosys.com',9009009003,'Goyal@01',false,100,false);
+
+select * from buyer;
+
+
+
+
+create table seller(
+sellerid integer primary key,
+name varchar(100),
+email varchar(25),
+phoneno bigint,
+password varchar(20),
+isactive boolean);
+insert into seller values(1,'payal','payal@infosys.com',8008008001,'Payal@01',true);
+insert into seller values(2,'hima','hima@infosys.com',8008008002,'Hima@01',false);
+
+select * from seller;
+
+
+create schema `productdb`;
+use `productdb`;
+create table product(
+prodid integer primary key,
+productname varchar(100),
+price double,
+stock integer,
+description varchar(500),
+image varchar(255),
+sellerid integer,
+category varchar(25),
+subcategory varchar(25),
+productrating integer);
+insert into product values(1,'watch',500.0,20,'ladies watch','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',1,'accessories','gadgets',4);
+insert into product values(2,'phone',10000.0,20,'redmi note 9','C:\Users\hp\Downloads\IMG-20210627-WA0018.jpg',2,'accessories','gadgets',3);
+
+select * from product;
+create table subscribedproduct(
+buyerid integer,
+prodid integer,
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into subscribedproduct values(1,1,3);
+
+select * from subscribedproduct;
+
+create schema `orderdb`;
+use `orderdb`;
+create table orders(
+orderid integer primary key AUTO_INCREMENT,
+buyerid integer,
+amount integer,
+orderdate date,
+address varchar(30),
+status varchar(25));
+insert into orders values(100,2,1000,'2017-08-12','Banglore','order placed');
+
+select * from orders;
+
+create table productsordered(
+buyerid integer,
+prodid integer,
+sellerid integer,
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into productsordered values(1,1,2,1);
+
+select * from productsordered;
+
+use `userdb`;
+
+create table wishlist(
+buyerid integer,
+prodid integer,
+primary key (buyerid,prodid)
+);
+insert into wishlist values(2,2);
+
+select * from wishlist;
+
+create table cart(
+buyerid integer,
+prodid integer,
+quantity integer,
+primary key (buyerid,prodid)
+);
+insert into cart values(2,2,2);
+insert into cart values(3,1,2);
+
+select * from cart;
